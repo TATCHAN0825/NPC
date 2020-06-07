@@ -54,23 +54,24 @@ class main extends PluginBase implements Listener
         if ($event->getCause() === 1) {
             $damager = $event->getDamager();
             $entity = $event->getEntity();
-            if (($speak = $entity->namedtag->getCompoundTag("speak")) !== null) {
-                foreach ($speak as $stringTag) {
-                    $damager->sendMessage($stringTag->getValue());
+            if ($damager instanceof Player) {
+                if (($speak = $entity->namedtag->getCompoundTag("speak")) !== null) {
+                    foreach ($speak as $stringTag) {
+                        $damager->sendMessage($stringTag->getValue());
+                    }
                 }
             }
-        }
-        $damager = $event->getDamager();
-        $name = $damager->getInventory()->getItemInHand()->getName();
-        $entity = $event->getEntity();
-        if (($type = $entity->namedtag->getCompoundTag("type")) !== null) {
 
-            foreach ($type as $stringTag2) {
-                if ($stringTag2->getValue() == "npc") {
-                    if ($name == "§aNPCREMOVER") {
-                        $entity->kill();
+            $name = $damager->getInventory()->getItemInHand()->getName();
+            if (($type = $entity->namedtag->getCompoundTag("type")) !== null) {
+
+                foreach ($type as $stringTag2) {
+                    if ($stringTag2->getValue() == "npc") {
+                        if ($name == "§aNPCREMOVER") {
+                            $entity->kill();
+                        }
+                        $event->setCancelled(true);
                     }
-                    $event->setCancelled(true);
                 }
             }
         }

@@ -6,7 +6,7 @@ name: npc
 main: tatchan\npc\Main
 
 #Version name/number of your plugin
-version: 2.0.0
+version: 3.0.0
 
 #API version that your plugin supports. If your plugin's API is not compatible with that of the server, the server will refuse to load your plugin.
 #The API version is changed when:
@@ -34,9 +34,9 @@ description: "npcの管理"
 #Commands that your plugin has. You can capture the execution of these via the `onCommand()` method in your PluginBase, or the registered CommandExecutor for the command.
 #This node is optional and can be removed if your plugin will not have any commands.
 commands:
- #Name of the command. This is what people will type to execute the command.
  npc:
-  #Description to show in the Help command
-  description: "NPCを出すよ"
+  description: "NPCを出す"
+  default: op
  npcremover:
-   description: "NPCを消す"
+  description: "NPCを消す"
+  default: op
