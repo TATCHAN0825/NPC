@@ -8,8 +8,6 @@ use pocketmine\entity\Human;
 use pocketmine\nbt\tag\CompoundTag;
 
 class npc implements Form{
-public function onEnable() {
- }
     public function handleResponse(Player $player, $data): void {
 
         if ($data === null) {
