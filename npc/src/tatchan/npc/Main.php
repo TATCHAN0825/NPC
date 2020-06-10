@@ -7,15 +7,10 @@ use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
-use pocketmine\math\Vector3;
-use pocketmine\level\Level;
-use pocketmine\entity\Entity;
-use  pocketmine\entity\Human;
 use tatchan\npc\Form\npc;
 use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\utils\Config;
 use pocketmine\item\Item;
 class main extends PluginBase implements Listener
 {
