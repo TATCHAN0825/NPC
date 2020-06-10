@@ -52,8 +52,8 @@ class main extends PluginBase implements Listener
     public function onDamage(EntityDamageEvent $event)
     {
         if ($event->getCause() === 1) {
-            $entity = $event->getEntity();
             if ($event instanceof EntityDamageByEntityEvent) {
+                $entity = $event->getEntity();
                 $damager = $event->getDamager();
                 if ($damager instanceof Player) {
                     if (($speak = $entity->namedtag->getCompoundTag("speak")) !== null) {
@@ -62,17 +62,17 @@ class main extends PluginBase implements Listener
                         }
                     }
                 }
-            }
-
-            $name = $damager->getInventory()->getItemInHand()->getName();
-            if (($type = $entity->namedtag->getCompoundTag("type")) !== null) {
-
-                foreach ($type as $stringTag2) {
-                    if ($stringTag2->getValue() == "npc") {
-                        if ($name == "§aNPCREMOVER") {
-                            $entity->kill();
+    
+                $name = $damager->getInventory()->getItemInHand()->getName();
+                if (($type = $entity->namedtag->getCompoundTag("type")) !== null) {
+        
+                    foreach ($type as $stringTag2) {
+                        if ($stringTag2->getValue() == "npc") {
+                            if ($name == "§aNPCREMOVER") {
+                                $entity->kill();
+                            }
+                            $event->setCancelled(true);
                         }
-                        $event->setCancelled(true);
                     }
                 }
             }
