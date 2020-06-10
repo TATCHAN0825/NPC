@@ -52,12 +52,14 @@ class main extends PluginBase implements Listener
     public function onDamage(EntityDamageEvent $event)
     {
         if ($event->getCause() === 1) {
-            $damager = $event->getDamager();
             $entity = $event->getEntity();
-            if ($damager instanceof Player) {
-                if (($speak = $entity->namedtag->getCompoundTag("speak")) !== null) {
-                    foreach ($speak as $stringTag) {
-                        $damager->sendMessage($stringTag->getValue());
+            if ($event instanceof EntityDamageByEntityEvent) {
+                $damager = $event->getDamager();
+                if ($damager instanceof Player) {
+                    if (($speak = $entity->namedtag->getCompoundTag("speak")) !== null) {
+                        foreach ($speak as $stringTag) {
+                            $damager->sendMessage($stringTag->getValue());
+                        }
                     }
                 }
             }
