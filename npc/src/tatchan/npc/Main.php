@@ -24,7 +24,6 @@ class main extends PluginBase implements Listener
     {
         $this->getLogger()->info("Hello World!");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        Entity::registerEntity(NPC::class, true);
     }
 
     public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool
