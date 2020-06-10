@@ -2,7 +2,6 @@
 
 namespace tatchan\npc;
 
-use pocketmine\inventory\InventoryHolder;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\CommandSender;
@@ -54,21 +53,16 @@ class main extends PluginBase implements Listener
                             $damager->sendMessage($stringTag->getValue());
                         }
                     }
-                }
-    
-                if ($damager instanceof InventoryHolder) {
                     $name = $damager->getInventory()->getItemInHand()->getName();
-                } else {
-                    $name = "";//HACK
-                }
-                if (($type = $entity->namedtag->getCompoundTag("type")) !== null) {
+                    if (($type = $entity->namedtag->getCompoundTag("type")) !== null) {
         
-                    foreach ($type as $stringTag2) {
-                        if ($stringTag2->getValue() == "npc") {
-                            if ($name == "§aNPCREMOVER") {
-                                $entity->kill();
+                        foreach ($type as $stringTag2) {
+                            if ($stringTag2->getValue() == "npc") {
+                                if ($name == "§aNPCREMOVER") {
+                                    $entity->kill();
+                                }
+                                $event->setCancelled(true);
                             }
-                            $event->setCancelled(true);
                         }
                     }
                 }
