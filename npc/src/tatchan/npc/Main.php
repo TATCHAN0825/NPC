@@ -1,6 +1,5 @@
 <?php
 
-
 namespace tatchan\npc;
 
 use pocketmine\Player;
@@ -12,9 +11,9 @@ use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\item\Item;
+
 class main extends PluginBase implements Listener
 {
-
     public function onEnable(): void
     {
         $this->getLogger()->info("Hello World!");
@@ -24,7 +23,6 @@ class main extends PluginBase implements Listener
     public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool
     {
         switch ($command->getName()) {
-
             case "npc":
                 if ($sender instanceof Player) {
                     $sender->sendForm(new npc());
