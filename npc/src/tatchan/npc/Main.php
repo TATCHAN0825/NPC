@@ -55,7 +55,6 @@ class main extends PluginBase implements Listener
                     }
                     $name = $damager->getInventory()->getItemInHand()->getName();
                     if (($type = $entity->namedtag->getCompoundTag("type")) !== null) {
-        
                         foreach ($type as $stringTag2) {
                             if ($stringTag2->getValue() == "npc") {
                                 if ($name == "§aNPCREMOVER") {
