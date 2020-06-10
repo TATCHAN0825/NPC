@@ -51,7 +51,7 @@ class main extends PluginBase implements Listener
 
     public function onDamage(EntityDamageEvent $event)
     {
-        if ($event->getCause() === 1) {
+        if ($event->getCause() === EntityDamageEvent::CAUSE_ENTITY_ATTACK) {
             if ($event instanceof EntityDamageByEntityEvent) {
                 $entity = $event->getEntity();
                 $damager = $event->getDamager();
