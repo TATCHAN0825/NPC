@@ -1,36 +1,28 @@
 <?php
 
-
 namespace tatchan\npc;
 
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
-use pocketmine\math\Vector3;
-use pocketmine\level\Level;
-use pocketmine\entity\Entity;
-use  pocketmine\entity\Human;
 use tatchan\npc\Form\npc;
 use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\utils\Config;
 use pocketmine\item\Item;
+
 class main extends PluginBase implements Listener
 {
-
     public function onEnable(): void
     {
         $this->getLogger()->info("Hello World!");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        Entity::registerEntity(NPC::class, true);
     }
 
     public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool
     {
         switch ($command->getName()) {
-
             case "npc":
                 if ($sender instanceof Player) {
                     $sender->sendForm(new npc());
@@ -51,26 +43,26 @@ class main extends PluginBase implements Listener
 
     public function onDamage(EntityDamageEvent $event)
     {
-        if ($event->getCause() === 1) {
-            $damager = $event->getDamager();
-            $entity = $event->getEntity();
-            if ($damager instanceof Player) {
-                if (($speak = $entity->namedtag->getCompoundTag("speak")) !== null) {
-                    foreach ($speak as $stringTag) {
-                        $damager->sendMessage($stringTag->getValue());
-                    }
-                }
-            }
-
-            $name = $damager->getInventory()->getItemInHand()->getName();
-            if (($type = $entity->namedtag->getCompoundTag("type")) !== null) {
-
-                foreach ($type as $stringTag2) {
-                    if ($stringTag2->getValue() == "npc") {
-                        if ($name == "§aNPCREMOVER") {
-                            $entity->kill();
+        if ($event->getCause() === EntityDamageEvent::CAUSE_ENTITY_ATTACK) {
+            if ($event instanceof EntityDamageByEntityEvent) {
+                $entity = $event->getEntity();
+                $damager = $event->getDamager();
+                if ($damager instanceof Player) {
+                    if (($speak = $entity->namedtag->getCompoundTag("speak")) !== null) {
+                        foreach ($speak as $stringTag) {
+                            $damager->sendMessage($stringTag->getValue());
                         }
-                        $event->setCancelled(true);
+                    }
+                    $name = $damager->getInventory()->getItemInHand()->getName();
+                    if (($type = $entity->namedtag->getCompoundTag("type")) !== null) {
+                        foreach ($type as $stringTag2) {
+                            if ($stringTag2->getValue() == "npc") {
+                                if ($name == "§aNPCREMOVER") {
+                                    $entity->kill();
+                                }
+                                $event->setCancelled(true);
+                            }
+                        }
                     }
                 }
             }
